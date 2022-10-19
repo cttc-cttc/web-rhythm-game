@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.jsp.project.dao.FreeBoardReplyMapper">
+	
+	<insert id="insertReply" parameterType="freeReply">
+		insert into freeboardreply(
+			replynum
+			,freeboardnum
+			,id
+			,nicname
+			,replycontent
+		)values(
+			freeboardreply_seq.nextval
+			,#{freeboardnum}
+			,#{id}
+			,#{nicname}
+			,#{replycontent}
+		)
+	</insert>
+	
+	<select id="selectReply" parameterType="int" resultType="freeReply">
+		select
+			replynum
+			,freeboardnum
+			,id
+			,nicname
+			,replycontent
+			,to_char(replyindate, 'YYYY/MM/DD') replyindate
+		from
+			freeboardreply
+		where
+			freeboardnum = #{freeboardnum}
+		order by replynum asc
+	</select>
+	
+	<delete id="deleteReply" parameterType="int">
+		delete freeboardreply
+		where replynum = #{replynum}
+	</delete>
+	
+</mapper>

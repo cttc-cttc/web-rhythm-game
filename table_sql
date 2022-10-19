@@ -1,0 +1,46 @@
+
+
+
+create table member(			--회원가입 테이블
+   id varchar2(30)primary key
+   ,password varchar2(30) not null
+   ,nicname varchar2(30) not null
+);
+
+create table usergameinfo(		--회원들의 게임 기록정보 테이블
+   id varchar2(30) not null
+   ,nicname varchar2(30) not null
+   ,musictitledif varchar(100) not null
+   ,score number default 0
+);
+
+create table freeboard(			--자유 게시판 테이블
+    freeboardnum number primary key
+    ,id varchar2(30) not null
+    ,nicname varchar2(30) not null
+    ,title varchar2(50) not null
+    ,content varchar2(2500) not null
+    ,indate date default sysdate
+    ,hits number default 0
+);
+
+create sequence freeboardnum_seq; --자유 게시판 글 번호 시퀀스
+
+create table freeboardreply(		--자유 게시판 리플 테이블
+        replynum number primary key
+	,freeboardnum number not null
+        ,id varchar2(30) not null
+	,nicname varchar2(30) not null
+        ,replycontent varchar2(500) not null
+        ,replyindate date default sysdate
+        ,constraint freeboardreply_fk foreign key(freeboardnum)
+        references freeboard(freeboardnum) on delete cascade
+);
+
+create sequence freeboardreply_seq; --자유 게시판 리플 번호 시퀀스
+
+
+
+
+
+

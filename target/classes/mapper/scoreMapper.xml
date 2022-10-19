@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.jsp.project.dao.ScoreMapper">
+	
+	<insert id="insertScore" parameterType="score">
+		insert into usergameinfo(
+			id
+			,nicname
+			,musictitledif
+			,score
+		)values(
+			#{id}
+			,#{nicname}
+			,#{musictitledif}
+			,#{score}
+		)
+	</insert>
+	
+	<select id="musicScore" resultType="score" parameterType="score">
+		select
+			nicname
+			,musictitledif
+			,score
+		from
+			usergameinfo
+		where
+			musictitledif = #{musictitledif} and id = #{id}
+	</select>
+	
+	<update id="updateScore" parameterType="score">
+		update
+			usergameinfo
+		set
+			score = #{score}
+		where
+			musictitledif = #{musictitledif} and id = #{id} and score &lt;= #{score}
+	</update>
+	
+	<select id="partMusicScore" resultType="score" parameterType="string">
+		select
+			nicname
+			,score
+		from
+			usergameinfo
+		where
+			musictitledif = #{musictitledif}
+		order by score desc
+	</select>
+</mapper>

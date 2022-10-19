@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.jsp.project.dao.FreeBoardMapper">
+	<insert id="insertFreeBoard" parameterType="freeBoard">
+		insert into freeboard(
+			freeboardnum
+			,id
+			,nicname
+			,title
+			,content
+		)values(
+			freeboardnum_seq.nextval
+			,#{id}
+			,#{nicname}
+			,#{title}
+			,#{content}
+		)
+	</insert>
+	
+	<select id="showAll" resultType="freeBoard" parameterType="int">
+		select
+			freeboardnum
+			,nicname
+			,title
+			,to_char(indate, 'YYYY/MM/DD') indate
+			,hits
+		from
+			freeboard
+		order by freeboardnum desc
+	</select>
+	
+	<select id="readFreeBoard" parameterType="int" resultType="freeBoard">
+		select
+			freeboardnum
+			,id
+			,nicname
+			,title
+			,content
+			,to_char(indate, 'YYYY/MM/DD') indate
+			,hits
+		from
+			freeboard
+		where
+			freeboardnum = #{freeboardnum}
+	</select>
+	
+	<update id="hitsUp" parameterType="int">
+		update
+			freeboard
+		set
+			hits = hits + 1
+		where
+			freeboardnum = #{freeboardnum}
+	</update>
+	
+	<update id="updateFreeBoard" parameterType="freeBoard">
+		update
+			freeboard
+		set
+			title = #{title}
+			,content = #{content}
+		where
+			freeboardnum = #{freeboardnum}
+	</update>
+	
+	
+	<delete id="deleteFreeBoard" parameterType="int">
+		delete freeboard
+		where freeboardnum = #{freeboardnum}
+	</delete>
+	
+	<select id="wholeBoardCount" resultType="int">
+		select count(*)
+		from freeboard
+	</select>
+</mapper>
