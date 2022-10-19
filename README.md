@@ -1,4 +1,4 @@
-# 웹 리듬게임 사이트 ACCENT
+# 웹 리듬게임 사이트
 ### 개발도구
 - Spring Tool Suite
 ### 기술스택
